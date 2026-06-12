@@ -3,7 +3,7 @@
 mkdir -p data
 mkdir -p local_data
 
-CUR_DIR="$(pwd)"
+CUR_DIR="/$(pwd)"
 
 case "$1" in
     build_generator)
