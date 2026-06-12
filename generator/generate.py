@@ -3,18 +3,15 @@ import random
 import os
 import sys
 
-NUM_ROWS = 50
-
-
-COLUMNS = ["COLUMN_1", "COLUMN_2", "COLUMN_3", "COLUMN_4"]
+NUM_ROWS = 100
+COLUMNS = ["AGE", "WEIGHT_KG", "UPPER_CHEST_MAX", "GYM_CLUB"]
 
 def generate_row():
-
     return {
-        "COLUMN_1": random.randint(0, 100),
-        "COLUMN_2": round(random.uniform(1.5, 9.9), 2),
-        "COLUMN_3": random.randint(0, 100),
-        "COLUMN_4": random.choice(["A", "B", "C"]),
+        "AGE": random.randint(16, 60),
+        "WEIGHT_KG": round(random.uniform(50.0, 110.0), 2),
+        "UPPER_CHEST_MAX": random.randint(40, 140),
+        "GYM_CLUB": random.choice(["DDX Fitness", "Kometa.fit", "Crocus Fitness", "UFC Gym"]),
     }
 
 OUTPUT_DIR = sys.argv[1] if len(sys.argv) > 1 else "/data"
@@ -28,4 +25,3 @@ with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=COLUMNS)
     writer.writeheader()
     writer.writerows(rows)
-
