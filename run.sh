@@ -3,21 +3,23 @@
 mkdir -p data
 mkdir -p local_data
 
+CUR_DIR="$(pwd)"
+
 case "$1" in
     build_generator)
-        docker build -t hw-generator ./generator
+        docker build --no-cache -t hw-generator ./generator
         ;;
     run_generator)
-        docker run --rm -v "$(pwd)/data:/data" hw-generator
+        docker run --rm -v "$CUR_DIR/data:/data" hw-generator
         ;;
     create_local_data)
         python3 generator/generate.py ./local_data
         ;;
     build_reporter)
-        docker build -t hw-reporter ./reporter
+        docker build --no-cache -t hw-reporter ./reporter
         ;;
     run_reporter)
-        docker run --rm -v "$(pwd)/data:/data" hw-reporter
+        docker run --rm -v "$CUR_DIR/data:/data" hw-reporter
         ;;
     structure)
         if command -v tree &> /dev/null; then
@@ -30,10 +32,10 @@ case "$1" in
         rm -rf data/*
         ;;
     inside_generator)
-        docker run --rm -v "$(pwd)/data:/data" hw-generator ls -la /data
+        docker run --rm -v "$CUR_DIR/data:/data" hw-generator ls -la /data
         ;;
     inside_reporter)
-        docker run --rm -v "$(pwd)/data:/data" hw-reporter ls -la /data
+        docker run --rm -v "$CUR_DIR/data:/data" hw-reporter ls -la /data
         ;;
     *)
         exit 1
